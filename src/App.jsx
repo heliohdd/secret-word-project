@@ -18,14 +18,26 @@ function App() {
   const [gameStage, setGameStage] = useState(stages[0].name);
   const [words] = useState(wordsList);
 
-  console.log(words);
-  // console.log(words[0].lenght())
+// Etapa 1 - Começar o jogo (Tela Game)
+  const startGame = () => {
+    setGameStage(stages[1].name)
+  }
+
+  // Etapa 2 - Terminar o jogo
+  const verifyLetter = () => {
+    setGameStage(stages[2].name)
+  }
+
+  // Etapa 3 - Reiniciar o jogo
+  const retry = () => {
+    setGameStage(stages[0].name)
+  }
 
   return (
     <div className="App">
-      {gameStage === "start" && <StartScreen />}
-      {gameStage === "game" && <Game />}
-      {gameStage === "end" && <GameOver />}
+      {gameStage === "start" && <StartScreen startGame={startGame} />}
+      {gameStage === "game" && <Game verifyLetter={verifyLetter} />}
+      {gameStage === "end" && <GameOver retry={retry} />}
     </div>
   );
 }
