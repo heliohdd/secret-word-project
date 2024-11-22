@@ -18,20 +18,52 @@ function App() {
   const [gameStage, setGameStage] = useState(stages[0].name);
   const [words] = useState(wordsList);
 
-// Etapa 1 - Começar o jogo (Tela Game)
+  const [pickedCategory, setPickedCategory] = useState("");
+  const [pickedWord, setPickedWord] = useState("");
+  const [letters, setLetters] = useState([]);
+
+  // Etapa 1.1 - Definir categoria e palavra do jogo
+  const pickWordAndCategory = () => {
+    // 1.1.1 - Selecionar categoria
+    const categories = Object.keys(words);
+    const category =
+      categories[Math.floor(Math.random() * Object.keys(categories).length)];
+
+    // 1.1.2 - Selecionar palavra
+    const word =
+      words[category][Math.floor(Math.random() * words[category].length)];
+
+    return { category, word };
+  };
+
+  // Etapa 1 - Começar o jogo (Tela Game)
   const startGame = () => {
-    setGameStage(stages[1].name)
-  }
+    // 1.2 - Armazenar categoria e palavra para iniciar jogo
+    const { category, word } = pickWordAndCategory();
+
+    // 1.3 - Criar array com as letras
+    let wordLetters = word.split("")
+    
+    wordLetters = wordLetters.map((l) => l.toLowerCase())
+
+    console.log(`As letras são: ${wordLetters}`)
+    
+    // 1.4 - Atribuir valores dos estados (States)
+    setPickedCategory(category)
+    setPickedWord(word)
+    setLetters(wordLetters)
+    setGameStage(stages[1].name);
+  };
 
   // Etapa 2 - Terminar o jogo
   const verifyLetter = () => {
-    setGameStage(stages[2].name)
-  }
+    setGameStage(stages[2].name);
+  };
 
   // Etapa 3 - Reiniciar o jogo
   const retry = () => {
-    setGameStage(stages[0].name)
-  }
+    setGameStage(stages[0].name);
+  };
 
   return (
     <div className="App">
