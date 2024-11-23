@@ -14,6 +14,8 @@ const stages = [
   { id: 3, name: "end" },
 ];
 
+const guessesQty = 3
+
 function App() {
   const [gameStage, setGameStage] = useState(stages[0].name);
   const [words] = useState(wordsList);
@@ -23,7 +25,7 @@ function App() {
   const [letters, setLetters] = useState([]);
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
-  const [guesses, setGuesses] = useState(3);
+  const [guesses, setGuesses] = useState(guessesQty);
   const [score, setScore] = useState(0);
 
   // Etapa 1.1 - Definir categoria e palavra do jogo
@@ -62,7 +64,6 @@ function App() {
   // Etapa 2 - Terminar o jogo
   const verifyLetter = (letter) => {
     const normalizedLetter = letter.toLowerCase();
-    console.log(`Valor da função verify letter: ${normalizedLetter}`);
 
     if (
       guessedLetters.includes(normalizedLetter) ||
@@ -81,13 +82,28 @@ function App() {
         ...actualWrongLetters,
         normalizedLetter,
       ]);
+      setGuesses((actualGuesses) => actualGuesses - 1)
     }
   };
-  console.log(`Essas são as guessed Letters: ${guessedLetters}`);
-  console.log(`Essas são as wrong Letters: ${wrongLetters}`)
 
+  const clearLetterStates = () => {
+    setGuessedLetters([])
+    setWrongLetters([])
+  }
+  
+  useEffect(() => {
+    if (guesses <= 0) {
+      // Reset all states
+      clearLetterStates()
+      setGameStage(stages[2].name)
+    }
+  }, [guesses])
+  
   // Etapa 3 - Reiniciar o jogo
   const retry = () => {
+    setScore(0)
+    setGuesses(guessesQty)
+    
     setGameStage(stages[0].name);
   };
 
