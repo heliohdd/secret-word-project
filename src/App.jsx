@@ -53,8 +53,6 @@ function App() {
 
     wordLetters = wordLetters.map((l) => l.toLowerCase());
 
-    console.log(`As letras são: ${wordLetters}`);
-
     // 1.4 - Atribuir valores dos estados (States)
     setPickedCategory(category);
     setPickedWord(word);
