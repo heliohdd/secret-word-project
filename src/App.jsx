@@ -21,6 +21,10 @@ function App() {
   const [pickedCategory, setPickedCategory] = useState("");
   const [pickedWord, setPickedWord] = useState("");
   const [letters, setLetters] = useState([]);
+  const [guessedLetters, setGuessedLetters] = useState([])
+  const [wrongLetters, setWrongLetters] = useState([])
+  const [guesses, setGuesses] = useState(3)
+  const [score, setScore] = useState(0);
 
   // Etapa 1.1 - Definir categoria e palavra do jogo
   const pickWordAndCategory = () => {
@@ -42,16 +46,16 @@ function App() {
     const { category, word } = pickWordAndCategory();
 
     // 1.3 - Criar array com as letras
-    let wordLetters = word.split("")
-    
-    wordLetters = wordLetters.map((l) => l.toLowerCase())
+    let wordLetters = word.split("");
 
-    console.log(`As letras são: ${wordLetters}`)
-    
+    wordLetters = wordLetters.map((l) => l.toLowerCase());
+
+    console.log(`As letras são: ${wordLetters}`);
+
     // 1.4 - Atribuir valores dos estados (States)
-    setPickedCategory(category)
-    setPickedWord(word)
-    setLetters(wordLetters)
+    setPickedCategory(category);
+    setPickedWord(word);
+    setLetters(wordLetters);
     setGameStage(stages[1].name);
   };
 
@@ -68,7 +72,18 @@ function App() {
   return (
     <div className="App">
       {gameStage === "start" && <StartScreen startGame={startGame} />}
-      {gameStage === "game" && <Game verifyLetter={verifyLetter} />}
+      {gameStage === "game" && (
+        <Game
+          verifyLetter={verifyLetter}
+          pickedWord={pickedWord}
+          pickedCategory={pickedCategory}
+          letters={letters}
+          guessedLetters={guessedLetters}
+          wrongLetters={wrongLetters}
+          guesses={guesses}
+          score={score}
+        />
+      )}
       {gameStage === "end" && <GameOver retry={retry} />}
     </div>
   );
