@@ -60,8 +60,8 @@ function App() {
   };
 
   // Etapa 2 - Terminar o jogo
-  const verifyLetter = () => {
-    setGameStage(stages[2].name);
+  const verifyLetter = (letter) => {
+    console.log(`Valor da função verify letter: ${letter}`)
   };
 
   // Etapa 3 - Reiniciar o jogo
