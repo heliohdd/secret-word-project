@@ -110,7 +110,7 @@ function App() {
   return (
     <div className="App">
       {gameStage === "start" && <StartScreen startGame={startGame} />}
-      {gameStage === "game" && (
+      {gameStage === "game" && 
         <Game
           verifyLetter={verifyLetter}
           pickedWord={pickedWord}
@@ -121,8 +121,8 @@ function App() {
           guesses={guesses}
           score={score}
         />
-      )}
-      {gameStage === "end" && <GameOver retry={retry} />}
+      }
+      {gameStage === "end" && <GameOver retry={retry} score={score} />}
     </div>
   );
 }
